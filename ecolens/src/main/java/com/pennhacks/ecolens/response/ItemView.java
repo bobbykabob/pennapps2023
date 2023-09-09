@@ -28,7 +28,7 @@ public class ItemView {
         this.description = description;
     }
 
-    @Override
+    
     public String toString() {
         return "ItemView{" +
                 "name='" + name + '\'' +
