@@ -56,4 +56,9 @@ public class TrashCanService {
         TrashCan trashCan = getTrashCan(id);
         trashCan.dumpTrash();
     }
+
+    public void updateTrash(int trashCanId, int trashCanItemId){
+        TrashCan trashCan = getTrashCan(trashCanId);
+        trashCan.updateTrashCanItemQuantity(trashCanItemId);
+    }
 }

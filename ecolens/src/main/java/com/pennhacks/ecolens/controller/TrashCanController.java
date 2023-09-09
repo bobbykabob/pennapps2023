@@ -29,4 +29,16 @@ public class TrashCanController {
         trashCanService.deleteTrashCan(id);
         return ResponseEntity.ok("Trash can with id: " + id + " deleted.");
     }
+
+    @PatchMapping("/trashcan:id")
+    public ResponseEntity<String> dumpTrashCan(@RequestParam int id){
+        trashCanService.dumpTrash(id);
+        return ResponseEntity.ok("Trash can with id " + id + " successfully dumped");
+    }
+
+    @PatchMapping("/trashcan/{trashCanId}")
+    public ResponseEntity<String> updateTrashCanItems(@PathVariable int trashCanId, @RequestBody int trashCanItemId){
+        trashCanService.updateTrash(trashCanId, trashCanItemId);
+        return ResponseEntity.ok("Trash can with id " + trashCanId + " added item with id" + trashCanItemId +".");
+    }
 }

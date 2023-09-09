@@ -69,11 +69,10 @@ public class TrashCan {
      * Represents throwing away item(s) which
      * updates the quantity of a trashCanItem by trashCanItem ID
      * @param id The ID of the trashCanItem to update
-     * @param quantity How much the quantity increases
      */
-    public void updateTrashCanItemQuantity(int id, int quantity){
+    public void updateTrashCanItemQuantity(int id){
         TrashCanItem item =  currentTrashCanItems.get(id);
-        item.setQuantity(item.getQuantity() + quantity);
+        item.setQuantity(item.getQuantity() + 1);
     }
 
     /**
