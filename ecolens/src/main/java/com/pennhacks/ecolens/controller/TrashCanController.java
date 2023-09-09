@@ -7,6 +7,7 @@ import com.pennhacks.ecolens.model.TrashCan;
 import com.pennhacks.ecolens.response.ItemErrorResponse;
 import com.pennhacks.ecolens.response.ItemView;
 import com.pennhacks.ecolens.response.TrashCanErrorResponse;
+import com.pennhacks.ecolens.response.TrashCanView;
 import com.pennhacks.ecolens.service.TrashCanService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +28,10 @@ public class TrashCanController {
      * @return ResponseEntity containing the trash can ID
      */
     @PostMapping("/trashcan")
-    public ResponseEntity<Integer> createTrashCan(){
+    public ResponseEntity<String> createTrashCan(){
         TrashCan newTrashCan = new TrashCan();
         TrashCan createdTrashCan = trashCanService.createTrashCan(newTrashCan);
-        return ResponseEntity.ok(createdTrashCan.getId());
+        return ResponseEntity.ok("New trash can created with id: " + createdTrashCan.getId());
     }
 
     @DeleteMapping("/trashcan/{id}")
@@ -39,16 +40,27 @@ public class TrashCanController {
         return ResponseEntity.ok("Trash can with id: " + id + " deleted.");
     }
 
-    @PatchMapping("/trashcan:id")
-    public ResponseEntity<String> dumpTrashCan(@RequestParam int id){
+    /**
+     * Request format: http://localhost:8080/trashcan:dump?id=1
+     * @param id
+     * @return
+     */
+    @PatchMapping("/trashcan:dump")
+    public ResponseEntity<String> dumpTrashCan(@RequestParam int id ){
         trashCanService.dumpTrash(id);
         return ResponseEntity.ok("Trash can with id " + id + " successfully dumped");
     }
 
+    /**
+     * Ex URL:http://localhost:8080/trashcan/1?itemName=Hot%20Cup
+     * @param trashCanId
+     * @param itemName
+     * @return
+     */
     @PatchMapping("/trashcan/{trashCanId}")
-    public ResponseEntity<String> updateTrashCanItems(@PathVariable int trashCanId, @RequestBody int trashCanItemId){
-        trashCanService.updateTrash(trashCanId, trashCanItemId);
-        return ResponseEntity.ok("Trash can with id " + trashCanId + " added item with id" + trashCanItemId +".");
+    public ResponseEntity<String> updateTrashCanItems(@PathVariable int trashCanId, @RequestParam("itemName") String itemName){
+        trashCanService.updateTrash(trashCanId, itemName);
+        return ResponseEntity.ok("Trash can with id " + trashCanId + " added item: " + itemName +".");
     }
 
     @GetMapping("/{itemName}")
@@ -76,7 +88,31 @@ public class TrashCanController {
                     ZonedDateTime.now(),
                     HttpStatus.NOT_FOUND.value(),
                     "/{itemName}",
-                    "Trash can not found: " + e.getMessage()
+                    "Trash Can not found: " + e.getMessage()
+            );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }
+    }
+
+    @GetMapping("/trashcan/{trashCanId}")
+    public ResponseEntity<?> getTrashCanItems(@PathVariable int trashCanId){
+        try {
+            TrashCan trashCan = trashCanService.getTrashCan(trashCanId);
+
+            // Assuming you have an ItemView class to represent the item's information
+            TrashCanView trashCanView = new TrashCanView(
+                    trashCan.getCurrentTrashCanItems(),
+                    trashCan.getLifetimeTrashCanItems()
+            );
+
+            return ResponseEntity.ok(trashCanView);
+        }catch (TrashCanNotFoundException e) {
+            // Handle the case where the trash can is not found
+            TrashCanErrorResponse errorResponse = new TrashCanErrorResponse(
+                    ZonedDateTime.now(),
+                    HttpStatus.NOT_FOUND.value(),
+                    "/{trashCanId}",
+                    "Trash Can not found: " + e.getMessage()
             );
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }

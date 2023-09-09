@@ -32,7 +32,7 @@ public class ItemRequest {
         this.confidence = confidence;
     }
 
-    @Override
+
     public String toString() {
         return "ItemRequest{" +
                 "name='" + name + '\'' +
