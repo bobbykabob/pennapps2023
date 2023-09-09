@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.data.relational.core.sql.In;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,14 +15,22 @@ public class TrashCan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @OneToMany(mappedBy = "trashCan", cascade = CascadeType.ALL, orphanRemoval = true)
-    @MapKeyJoinColumn(name = "item_id")
-    @JsonManagedReference
-    private Map<Item, Integer> currentItems;
+    @JoinColumn(name="trashCan_id")
+    private List<TrashCanItem> currentTrashCanItems = new ArrayList<>();
 
-    @ElementCollection
     @OneToMany(mappedBy = "trashCan", cascade = CascadeType.ALL, orphanRemoval = true)
-    @MapKeyJoinColumn(name = "item_id")
-    private Map<Item, Integer> lifetimeItems;
+    @JoinColumn(name="trashCan_id")
+    private List<TrashCanItem> lifetimeTrashCanItems = new ArrayList<>();
 
+    public void addCurrentTrashCanItem(TrashCanItem item){
+        currentTrashCanItems.add(item);
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
