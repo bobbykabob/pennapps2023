@@ -21,6 +21,7 @@ public class TrashCanService {
      * @return The created trash can
      */
     public TrashCan createTrashCan(TrashCan trashCan){
+        trashCan.initializeTrashCanItems();
         return trashCanRepo.save(trashCan);
     }
 
@@ -38,12 +39,21 @@ public class TrashCanService {
     }
 
     /**
-     *
+     * Delete a trashcan by its id
      * @param id The ID of the trash can to delete
      * @throws TrashCanNotFoundException If the trash can is not found
      */
     public void deleteTrashCan(int id){
         TrashCan trashCan = getTrashCan(id);
         trashCanRepo.delete(trashCan);
+    }
+
+    /**
+     * Dump a trashcan by its id
+     * @param id The ID of the trash can to dump
+     */
+    public void dumpTrash(int id){
+        TrashCan trashCan = getTrashCan(id);
+        trashCan.dumpTrash();
     }
 }
