@@ -37,14 +37,12 @@ import jakarta.persistence.*;
 public class TrashCanItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "trashcan_id")
     private TrashCan trashCan;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
     private Item item;
 
     private int quantity;
@@ -59,11 +57,15 @@ public class TrashCanItem {
 
     }
 
-    public Long getId() {
+    public String getItemDescription(){
+        return item.getDescription();
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

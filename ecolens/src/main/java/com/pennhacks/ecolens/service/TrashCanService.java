@@ -61,4 +61,8 @@ public class TrashCanService {
         TrashCan trashCan = getTrashCan(trashCanId);
         trashCan.updateTrashCanItemQuantity(trashCanItemId);
     }
+
+    public void getItemDescription(String itemName){
+
+    }
 }

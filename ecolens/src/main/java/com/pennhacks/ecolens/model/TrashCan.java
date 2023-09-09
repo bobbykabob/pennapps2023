@@ -1,6 +1,7 @@
 package com.pennhacks.ecolens.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.pennhacks.ecolens.exception.ItemNotFoundException;
 import jakarta.persistence.*;
 import org.springframework.data.relational.core.sql.In;
 
@@ -17,12 +18,11 @@ public class TrashCan {
 
     private boolean isRecycle;
     @OneToMany(mappedBy = "trashCan", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="trashCan_id")
     private List<TrashCanItem> currentTrashCanItems = new ArrayList<>();
 
     @OneToMany(mappedBy = "trashCan", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="trashCan_id")
     private List<TrashCanItem> lifetimeTrashCanItems = new ArrayList<>();
+
 
     public TrashCan(boolean isRecycle, List<TrashCanItem> currentTrashCanItems,
                     List<TrashCanItem> lifetimeTrashCanItems) {
@@ -36,6 +36,19 @@ public class TrashCan {
     }
 
     public TrashCan() {
+    }
+
+    public List<TrashCanItem> getCurrentTrashCanItems(){
+        return currentTrashCanItems;
+    }
+
+    public Item getItemByName(String name) throws ItemNotFoundException {
+        for (TrashCanItem item : currentTrashCanItems) {
+            if (item.getItem().getName().equals(name)) {
+                return item.getItem();
+            }
+        }
+        throw new ItemNotFoundException("Item with name '" + name + "' not found");
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.pennhacks.ecolens.exception;
 
+import com.pennhacks.ecolens.response.ItemErrorResponse;
+import com.pennhacks.ecolens.response.TrashCanErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler
     public ResponseEntity<ItemErrorResponse> handleTrashCanNotFoundException(ItemNotFoundException exception,
-                                                                                 HttpServletRequest req){
+                                                                             HttpServletRequest req){
         ItemErrorResponse error = new ItemErrorResponse(
                 ZonedDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),

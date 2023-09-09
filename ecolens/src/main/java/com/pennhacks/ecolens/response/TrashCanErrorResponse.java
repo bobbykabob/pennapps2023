@@ -1,17 +1,17 @@
-package com.pennhacks.ecolens.exception;
+package com.pennhacks.ecolens.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.ZonedDateTime;
 
-public class ItemErrorResponse {
+public class TrashCanErrorResponse {
     @JsonFormat
     private ZonedDateTime timeStamp;
     private int statusCode;
     private String path;
     private String message;
 
-    public ItemErrorResponse(ZonedDateTime timeStamp,
+    public TrashCanErrorResponse(ZonedDateTime timeStamp,
                                  int statusCode, String path, String message) {
         this.timeStamp = timeStamp;
         this.statusCode = statusCode;
