@@ -7,7 +7,7 @@ model = YOLO('yolov8n.pt')
 cwd = os.getcwd()
 # Training.
 results = model.train(
-    data=cwd + '/dataset1/data.yaml',
+    data=cwd + '/dataset3/data.yaml',
     imgsz=1280,
     epochs=50,
     batch=8,

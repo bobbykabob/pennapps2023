@@ -29,7 +29,7 @@ class CV_Core:
                       "confidence": 0.9
         }
 
-        detection_output = self.model.predict(source=0, conf=0.75, show=True)
+        detection_output = self.model.predict(source=0, conf=0.3, show=True)
         print(detection_output)
         # saving json file
         cwd = os.getcwd()
