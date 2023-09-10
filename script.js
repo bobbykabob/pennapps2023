@@ -15,14 +15,6 @@ async function init() {
         console.log('Error retrieving a media device.');
         console.log(err);
     }
-
-    roboflow.auth({
-        
-    })
-    }).then(function(model) {
-        // model has loaded!
-    });
-
 }
 
 async function getModel() {
@@ -38,10 +30,6 @@ async function getModel() {
     return model;
 }
 
-var initalized_model = getModel();
-
-initalized_model.then(function (model)) {
-}
 function startWebcam(stream) {
     window.stream = stream;
     video.srcObject = stream;
@@ -68,9 +56,7 @@ function startRecording() {
     mediaRecorder = new MediaRecorder(window.stream, {mimeType: 'video/webm;codecs=vp9,opus'});
     mediaRecorder.start();
     mediaRecorder.ondataavailable = recordVideo;
-    model.detect(video).then(function(predictions) {
-        console.log("Predictions:", predictions);
-    });
+    
 }
 
 // function recordVideo(event) {
