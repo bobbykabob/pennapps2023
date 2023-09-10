@@ -30,6 +30,8 @@ function getItemJSON(callback) {
     httpRequest.send();
 }
 
+// function get
+
 $(function () {
     const video = $("video")[0];
     const devices = navigator.mediaDevices.enumerateDevices();
@@ -205,7 +207,7 @@ $(function () {
             .then(function (predictions) {
                 requestAnimationFrame(detectFrame);
                 renderPredictions(predictions);
-
+                console.log(predictions);
                 if (prevTime) {
                     pastFrameTimes.push(Date.now() - prevTime);
                     if (pastFrameTimes.length > 30) pastFrameTimes.shift();

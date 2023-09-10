@@ -1,0 +1,49 @@
+
+body {
+    /* Your CSS styles for the body element */
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    /* Your CSS styles for the container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    border-bottom: 2px solid #ddd;
+}
+
+.video {
+    /* Your CSS styles for the video container */
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.video video {
+    /* Your CSS styles for the video element */
+    width: 1080px;
+    height: 720px;
+}
+
+.info {
+    /* Your CSS styles for the info container */
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.item-name h1 {
+    /* Your CSS styles for the item name */
+    font-size: 24px;
+    color: #333;
+}
+
+.description p {
+    /* Your CSS styles for the description */
+    font-size: 16px;
+    color: #666;
+}
