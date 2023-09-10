@@ -100,25 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let currentView = 'recycled'; // Initial view
 
-    // Function to toggle between views
-    function toggleView(data) {
-        if (currentView === 'recycled') {
-            // Toggle to non-recycled view
-            displayNonRecycledTrash(data); // Pass the data here
-            currentView = 'non-recycled';
-        } else {
-            // Toggle to recycled view
-            displayRecycledTrash(data); // Pass the data here
-            currentView = 'recycled';
-        }
-    }
-
-    // Attach a click event listener to the toggle button
-    const toggleButton = document.getElementById('toggleButton');
-    toggleButton.addEventListener('click', function () {
-        getAllCurrentTrash(); // Fetch new data when toggling
-        toggleView(data);
-    });
 
     // Function to display recycled trash data
     function displayRecycledTrash(data) {
