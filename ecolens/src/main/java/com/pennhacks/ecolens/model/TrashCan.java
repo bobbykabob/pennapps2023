@@ -14,8 +14,6 @@ public class TrashCan {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private int id;
-
-    private boolean isRecycle;
     @OneToMany(mappedBy = "currentTrashCan", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<CurrentTrashCanItem> currentTrashCanItems = new ArrayList<>();
@@ -25,15 +23,10 @@ public class TrashCan {
     private List<LifetimeTrashCanItem> lifetimeTrashCanItems = new ArrayList<>();
 
 
-    public TrashCan(boolean isRecycle, List<CurrentTrashCanItem> currentTrashCanItems,
+    public TrashCan(List<CurrentTrashCanItem> currentTrashCanItems,
                     List<LifetimeTrashCanItem> lifetimeTrashCanItems) {
-        this.isRecycle = isRecycle;
         this.currentTrashCanItems = currentTrashCanItems;
         this.lifetimeTrashCanItems = lifetimeTrashCanItems;
-    }
-
-    public TrashCan(boolean isRecycle) {
-        this.isRecycle = isRecycle;
     }
 
     public TrashCan() {

@@ -8,6 +8,7 @@ import com.pennhacks.ecolens.repository.LifetimeTrashCanItemRepository;
 import com.pennhacks.ecolens.repository.TrashCanRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -120,7 +121,6 @@ public class TrashCanService {
         for (CurrentTrashCanItem item : trashCan.getCurrentTrashCanItems()) {
             System.out.println(itemName);
             if (item.getItem().getName().equals(itemName)) {
-                System.out.println(item.getItem().getName());
                 item.setQuantity(item.getQuantity() + 1);
                 // Save the updated TrashCanItem to persist the quantity change
                 currentTrashCanItemRepo.save(item);
@@ -130,7 +130,7 @@ public class TrashCanService {
         trashCanRepo.save(trashCan);
     }
 
-    public void getItemDescription(String itemName){
-
+    public List<TrashCan> getAllTrashCans(){
+        return trashCanRepo.findAll();
     }
 }

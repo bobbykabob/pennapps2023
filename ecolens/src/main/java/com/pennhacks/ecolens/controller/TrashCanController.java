@@ -2,12 +2,11 @@ package com.pennhacks.ecolens.controller;
 
 import com.pennhacks.ecolens.exception.ItemNotFoundException;
 import com.pennhacks.ecolens.exception.TrashCanNotFoundException;
+import com.pennhacks.ecolens.model.CurrentTrashCanItem;
 import com.pennhacks.ecolens.model.Item;
+import com.pennhacks.ecolens.model.LifetimeTrashCanItem;
 import com.pennhacks.ecolens.model.TrashCan;
-import com.pennhacks.ecolens.response.ItemErrorResponse;
-import com.pennhacks.ecolens.response.ItemView;
-import com.pennhacks.ecolens.response.TrashCanErrorResponse;
-import com.pennhacks.ecolens.response.TrashCanView;
+import com.pennhacks.ecolens.response.*;
 import com.pennhacks.ecolens.service.TrashCanService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +51,7 @@ public class TrashCanController {
     }
 
     /**
-     * Ex URL:http://localhost:8080/trashcan/1?itemName=Hot%20Cup
+     * Ex URL: http://localhost:8080/trashcan/1?itemName=Hot%20Cup
      * @param trashCanId
      * @param itemName
      * @return
@@ -116,5 +115,104 @@ public class TrashCanController {
             );
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
+    }
+
+    @GetMapping("/trashcan/{current}/{trashCanId}")
+    public ResponseEntity<?> getCurrentTrashTypesById(@PathVariable boolean current, 
+                                                      @PathVariable int trashCanId){
+        try {
+            TrashCan trashCan = trashCanService.getTrashCan(trashCanId);
+            int recyclables = 0;
+            int nonrecyclables = 0;
+
+            if(current){
+                for(CurrentTrashCanItem item : trashCan.getCurrentTrashCanItems()){
+                    if(item.getItem().isRecyclable()){
+                        recyclables += item.getQuantity();
+                    }
+                    else{
+                        nonrecyclables += item.getQuantity();
+                    }
+                }
+            }
+            else{
+                for(LifetimeTrashCanItem item : trashCan.getLifetimeTrashCanItems()){
+                    if(item.getItem().isRecyclable()){
+                        recyclables += item.getQuantity();
+                    }
+                    else{
+                        nonrecyclables += item.getQuantity();
+                    }
+                }
+            }
+
+            // Assuming you have an ItemView class to represent the item's information
+            TrashTypesView trashCanView = new TrashTypesView(
+                    recyclables,
+                    nonrecyclables
+            );
+
+            return ResponseEntity.ok(trashCanView);
+        }catch (TrashCanNotFoundException e) {
+            // Handle the case where the trash can is not found
+            TrashCanErrorResponse errorResponse = new TrashCanErrorResponse(
+                    ZonedDateTime.now(),
+                    HttpStatus.NOT_FOUND.value(),
+                    "/{trashCanId}",
+                    "Trash Can not found: " + e.getMessage()
+            );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }
+    }
+
+    @GetMapping("trashcan:all")
+    public ResponseEntity<?> getAllTrashTypes(@RequestParam boolean current){
+        try {
+            TrashTypesView trashCanView = getTrashTypesView(current);
+            return ResponseEntity.ok(trashCanView);
+        }catch (TrashCanNotFoundException e) {
+            // Handle the case where the trash can is not found
+            TrashCanErrorResponse errorResponse = new TrashCanErrorResponse(
+                    ZonedDateTime.now(),
+                    HttpStatus.NOT_FOUND.value(),
+                    "/{trashCanId}",
+                    "Trash Can not found: " + e.getMessage()
+            );
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }
+    }
+
+    private TrashTypesView getTrashTypesView(boolean current) {
+        int recyclables = 0;
+        int nonrecyclables = 0;
+
+        if(current){
+            for(TrashCan trashCan: trashCanService.getAllTrashCans()) {
+                for (CurrentTrashCanItem item : trashCan.getCurrentTrashCanItems()) {
+                    if (item.getItem().isRecyclable()) {
+                        recyclables += item.getQuantity();
+                    } else {
+                        nonrecyclables += item.getQuantity();
+                    }
+                }
+            }
+        }
+        else{
+            for(TrashCan trashCan: trashCanService.getAllTrashCans()) {
+                for (LifetimeTrashCanItem item : trashCan.getLifetimeTrashCanItems()) {
+                    if (item.getItem().isRecyclable()) {
+                        recyclables += item.getQuantity();
+                    } else {
+                        nonrecyclables += item.getQuantity();
+                    }
+                }
+            }
+        }
+
+        // Assuming you have an ItemView class to represent the item's information
+        return new TrashTypesView(
+                recyclables,
+                nonrecyclables
+        );
     }
 }
