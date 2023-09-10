@@ -24,18 +24,16 @@ async function init() {
 
 }
 
-async function getModel() {
-    var model = await roboflow
-    .auth({
-        publishable_key: "rf_u7rYUutCECb4Rl3pN9hTuhh8XVg2"
-    })
-    .load({
-        model: "ecolens",
-        version: 5
-    });
-    
-    return model;
-}
+// async function getModel() {
+//     return await roboflow
+//         .auth({
+//             publishable_key: "rf_u7rYUutCECb4Rl3pN9hTuhh8XVg2"
+//         })
+//         .load({
+//             model: "ecolens",
+//             version: 5
+//         });
+// }
 
 var initalized_model = getModel();
 
