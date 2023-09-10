@@ -62,6 +62,12 @@ public class TrashCanController {
         return ResponseEntity.ok("Trash can with id " + trashCanId + " added item: " + itemName +".");
     }
 
+    /**
+     * EX: http://localhost:8080/trashcan?itemName=Hot%20Cup
+     * @param itemName
+     * @return
+     */
+    @CrossOrigin(origins = "*")
     @GetMapping("/trashcan")
     public ResponseEntity<?> getItemDescription(@RequestParam("itemName") String itemName) {
         try {

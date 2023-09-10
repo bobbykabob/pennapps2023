@@ -70,19 +70,21 @@ function startRecording() {
 }
 function getItemJSON() {
     let httpRequest = new XMLHttpRequest();
-    const itemName = "Hot Cup"; // Replace with the actual item name you want to retrieve
-    httpRequest.open("GET", `/${itemName}`);
+    const itemName = "Hot Cup";
+    const encodedItemName = encodeURIComponent(itemName);
+    const url = `http://localhost:8080/trashcan?itemName=${encodedItemName}`;
+    httpRequest.open("GET", url); // Use the updated URL
     httpRequest.setRequestHeader("Accept", "application/json");
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState === 4 && httpRequest.status === 200) {
             // Parse the JSON response
             const response = JSON.parse(httpRequest.responseText);
-            
+
             // Handle the parsed JSON data here
             console.log(response);
-        } else if (httpRequest.readyState === 4) {
-            // Handle errors or other status codes
-            console.error("Request failed with status: " + httpRequest.status);
+            } else if (httpRequest.readyState === 4) {
+                // Handle errors or other status codes
+                console.error("Request failed with status: " + httpRequest.status);
         }
     };
     httpRequest.send();
