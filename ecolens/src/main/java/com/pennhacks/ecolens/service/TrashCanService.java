@@ -33,31 +33,51 @@ public class TrashCanService {
 // Create Circular Lid and Hot Cup items
         Item item1 = new Item("lid", true, "Paper is a recyclable material, and it can" +
                 " be processed into new paper products during recycling.");
-        Item item2 = new Item("cup", true, "Paper is inherently recyclable, and it can be broken" +
+        Item item2 = new Item("paper_cup", true, "Paper is inherently recyclable, and it can be broken" +
                 " down and processed into new paper products.");
-        Item item3 = new Item("straw", false, "Styrofoam is not biodegradable and can" +
+        Item item3 = new Item("box", false, "Styrofoam is not biodegradable and can" +
                 " harm the environment.");
+        Item item4 = new Item("spherical_lid", false,"" );
+        Item item5 = new Item("straw",false, "Plastic straws, when not properly disposed of," +
+                " can contribute to plastic pollution in the environment");
+        Item item6 = new Item("paper_bag", true, " These lids are often made from" +
+                " polystyrene (PS) and are not accepted for recycling.");
 
         itemRepo.save(item1);
         itemRepo.save(item2);
         itemRepo.save(item3);
+        itemRepo.save(item4);
+        itemRepo.save(item5);
+        itemRepo.save(item6);
 
 // Create TrashCanItem instances for currentTrashCanItems
         CurrentTrashCanItem lid1 = new CurrentTrashCanItem(trashCan, item1, 0);
         CurrentTrashCanItem cup1 = new CurrentTrashCanItem(trashCan, item2, 0);
         CurrentTrashCanItem box1 = new CurrentTrashCanItem(trashCan, item3, 0);
+        CurrentTrashCanItem spherical_lid1 = new CurrentTrashCanItem(trashCan, item4, 0);
+        CurrentTrashCanItem straw1 = new CurrentTrashCanItem(trashCan, item5, 0);
+        CurrentTrashCanItem paper_bag1 = new CurrentTrashCanItem(trashCan, item6, 0);
 
 // Create TrashCanItem instances for lifetimeTrashCanItems
         LifetimeTrashCanItem lid2 = new LifetimeTrashCanItem(trashCan, item1, 0);
         LifetimeTrashCanItem cup2 = new LifetimeTrashCanItem(trashCan, item2, 0);
         LifetimeTrashCanItem box2 = new LifetimeTrashCanItem(trashCan, item3, 0);
+        LifetimeTrashCanItem spherical_lid2 = new LifetimeTrashCanItem(trashCan, item4, 0);
+        LifetimeTrashCanItem straw2 = new LifetimeTrashCanItem(trashCan, item5, 0);
+        LifetimeTrashCanItem paper_bag2 = new LifetimeTrashCanItem(trashCan, item6, 0);
 
         trashCan.getCurrentTrashCanItems().add(lid1);
         trashCan.getCurrentTrashCanItems().add(cup1);
         trashCan.getCurrentTrashCanItems().add(box1);
+        trashCan.getCurrentTrashCanItems().add(spherical_lid1);
+        trashCan.getCurrentTrashCanItems().add(straw1);
+        trashCan.getCurrentTrashCanItems().add(paper_bag1);
         trashCan.getLifetimeTrashCanItems().add(lid2);
         trashCan.getLifetimeTrashCanItems().add(cup2);
         trashCan.getLifetimeTrashCanItems().add(box2);
+        trashCan.getLifetimeTrashCanItems().add(spherical_lid2);
+        trashCan.getLifetimeTrashCanItems().add(straw2);
+        trashCan.getLifetimeTrashCanItems().add(paper_bag2);
 // Save the updated trashCan
         trashCanRepo.save(trashCan);
 

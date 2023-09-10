@@ -25,7 +25,7 @@ $(function () {
     var publishable_key = "rf_u7rYUutCECb4Rl3pN9hTuhh8XVg2";
     var toLoad = {
         model: "ecolens",
-        version: 5
+        version: 6
     };
 
     const loadModelPromise = new Promise(function (resolve, reject) {
