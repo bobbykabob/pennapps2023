@@ -16,11 +16,11 @@ async function init() {
         console.log(err);
     }
 
-    roboflow.auth({
-        
-    }).then(function(model) {
-        // model has loaded!
-    });
+    // roboflow.auth({
+    //
+    // }).then(function(model) {
+    //     // model has loaded!
+    // });
 
 }
 
@@ -35,9 +35,9 @@ async function init() {
 //         });
 // }
 
-var initalized_model = getModel();
+// var initalized_model = getModel();
 
-initalized_model.then(function (model){})
+// initalized_model.then(function (model){})
 function startWebcam(stream) {
     window.stream = stream;
     video.srcObject = stream;
