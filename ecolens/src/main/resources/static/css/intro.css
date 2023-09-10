@@ -1,0 +1,48 @@
+/* intro.css */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+}
+
+.container {
+    text-align: center;
+    color: white;
+    margin-top: 20px; /* Raise everything on the screen a bit */
+}
+
+.title {
+    font-size: 8rem; /* Increase font size for the h1 */
+    margin-bottom: 250px;
+    font-family: 'Exo', sans-serif;
+    text-transform: uppercase;
+
+}
+
+
+#start_button {
+    /* Center the button horizontally and vertically */
+    position: absolute;
+    top: 50%;
+    left: 45%;
+
+    /* Set the background image and specify the size */
+    background-image: url('../img/camera-icon.png');
+    background-size: cover; /* Ensure the background image fits the button */
+    background-repeat: no-repeat; /* Prevent image repetition */
+    width: 10em; /* Set the width to 5em (adjust as needed) */
+    height: 10em; /* Set the height to 5em (adjust as needed) */
+    border: none; /* Remove button border */
+    cursor: pointer; /* Add a pointer cursor on hover */
+    transition: transform 0.3s ease; /* Add animation on hover */
+}
+
+#start_button:hover {
+    /* Add a rotate transform on hover */
+    transform: rotate(180deg);
+}
+

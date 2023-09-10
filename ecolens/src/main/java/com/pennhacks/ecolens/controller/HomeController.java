@@ -78,4 +78,35 @@ public class HomeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/dashboard")
+    public ResponseEntity<byte[]> getDashboardPage() {
+        try {
+            // Specify the path to your HTML file
+            Path path = Paths.get("src/main/resources/static/dashboard.html");
+
+            // Create a UrlResource from the path
+            UrlResource resource = new UrlResource(path.toUri());
+
+            // Check if the resource exists
+            if (resource.exists()) {
+                // Read the HTML file into a byte array
+                byte[] bytes = Files.readAllBytes(path);
+
+                // Serve the HTML file with the appropriate content type
+                return ResponseEntity.ok()
+                        .contentType(MediaType.TEXT_HTML)
+                        .body(bytes);
+            } else {
+                // Handle the case where the HTML file is not found
+                return ResponseEntity.notFound().build();
+            }
+        } catch (MalformedURLException e) {
+            // Handle a malformed URL exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (IOException e) {
+            // Handle an IO exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

@@ -18,14 +18,40 @@
 
     <script src="https://cdn.roboflow.com/0.2.26/roboflow.js"></script>
 
-    <link rel="stylesheet" href="./main.css">
-    <script src="./main.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
 </head>
 
 <body class="loading">
 
-    <video id="video" autoplay muted playsinline></video>
-    <div id="fps"></div>
+    <div class="container">
+        <div class="video">
+            <div id="fps"></div>
+            <video controls autoplay>
+                <source src="your-video.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="info">
+            <div class="item-name">
+                <!-- Item name goes here -->
+                <h1>Item Name</h1>
+            </div>
+            <div class="description">
+                <!-- Item description goes here --> 
+                <p>Loading description...</p>
+            </div>
+            <script>
+                function updateDescription(description) {
+                    const descriptionElement = document.getElementById('item-description');
+                    descriptionElement.innerHTML = `<p>${description}</p>`;
+                }
+        
+                // Assuming you call getItemJSON and pass the updateDescription function as a callback
+                getItemJSON(updateDescription);
+            </script>
+        </div>
+    </div>
+    
 
 </body>
 

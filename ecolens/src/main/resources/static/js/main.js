@@ -1,5 +1,35 @@
 /*jshint esversion:6*/
 
+function getItemJSON(callback) {
+    let httpRequest = new XMLHttpRequest();
+    const itemName = "Hot Cup";
+    const encodedItemName = encodeURIComponent(itemName);
+    const url = `http://localhost:8080/trashcan?itemName=${encodedItemName}`;
+    httpRequest.open("GET", url); // Use the updated URL
+    httpRequest.setRequestHeader("Accept", "application/json");
+    httpRequest.onreadystatechange = function () {
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                // Parse the JSON response
+                const response = JSON.parse(httpRequest.responseText);
+
+                // Check if there is a description in the JSON data
+                const description = response.description || "No trash detected";
+
+                // Call the callback function with the description
+                callback(description);
+            } else {
+                // Handle errors or other status codes
+                console.error("Request failed with status: " + httpRequest.status);
+
+                // Provide a default description in case of error
+                callback("No trash detected");
+            }
+        }
+    };
+    httpRequest.send();
+}
+
 $(function () {
     const video = $("video")[0];
     const devices = navigator.mediaDevices.enumerateDevices();
