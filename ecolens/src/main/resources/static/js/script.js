@@ -68,7 +68,7 @@ function startRecording() {
         console.log("Predictions:", predictions);
     });
 }
-function getItemJSON() {
+function getItemJSON(callback) {
     let httpRequest = new XMLHttpRequest();
     const itemName = "Hot Cup";
     const encodedItemName = encodeURIComponent(itemName);
@@ -76,15 +76,17 @@ function getItemJSON() {
     httpRequest.open("GET", url); // Use the updated URL
     httpRequest.setRequestHeader("Accept", "application/json");
     httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-            // Parse the JSON response
-            const response = JSON.parse(httpRequest.responseText);
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                // Parse the JSON response
+                const response = JSON.parse(httpRequest.responseText);
 
-            // Handle the parsed JSON data here
-            console.log(response);
-            } else if (httpRequest.readyState === 4) {
+                // Call the callback function with the parsed JSON data
+                callback(response);
+            } else {
                 // Handle errors or other status codes
                 console.error("Request failed with status: " + httpRequest.status);
+            }
         }
     };
     httpRequest.send();
