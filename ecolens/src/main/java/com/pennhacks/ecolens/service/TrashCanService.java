@@ -8,6 +8,7 @@ import com.pennhacks.ecolens.repository.LifetimeTrashCanItemRepository;
 import com.pennhacks.ecolens.repository.TrashCanRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +77,15 @@ public class TrashCanService {
         return trashCanOptional.orElseThrow(
                 () -> new TrashCanNotFoundException("Trash can with id{" + id + "} not found.")
         );
+    }
+
+    public List<Integer> getAllTrashCanIds(){
+        List<TrashCan> trashCans = trashCanRepo.findAll();
+        List<Integer> trashCanIds = new ArrayList<>();
+        for(TrashCan trashCan: trashCans){
+            trashCanIds.add(trashCan.getId());
+        }
+        return trashCanIds;
     }
 
     /**

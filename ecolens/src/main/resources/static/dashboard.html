@@ -5,21 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/dashboard.css">
     <title>Dashboard</title>
+    <script src="/js/dashboard.js"></script>
 </head>
+
 <body>
 <header class="header">
     <h1>Dashboard</h1>
 </header>
+
 <main class="content">
-    <!-- Dashboard content goes here -->
-    <div class="widget">
-        <h2>Incident Summary</h2>
-        <!-- Add your content here -->
+    <label for="trashcanselector">Select a Trash Can:</label>
+    <select id="trashcanselector">
+        <!-- Options will be dynamically added here using JavaScript -->
+    </select>
+
+    <div id="currentRecycledTrashWidget" class="widget">
+        <h2>All Current Recycled</h2>
+        <div id="currentRecycledTrashContent">
+            <!-- Display the initial view (recycled) here -->
+        </div>
     </div>
-    <div class="widget">
-        <h2>Alerts</h2>
-        <!-- Add your content here -->
+
+    <div id="currentNonRecycledTrashWidget" class="widget">
+        <h2>All Current Non-Recycled</h2>
+        <div id="currentNonRecycledTrashContent">
+            <!-- Display the initial view (non-recycled) here -->
+        </div>
     </div>
+
+
 </main>
 </body>
 </html>

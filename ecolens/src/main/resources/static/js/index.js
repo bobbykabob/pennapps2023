@@ -1,4 +1,3 @@
-/*jshint esversion:6*/
 
 function getItemJSON(callback) {
     let httpRequest = new XMLHttpRequest();
@@ -30,7 +29,10 @@ function getItemJSON(callback) {
     httpRequest.send();
 }
 
-// function get
+function getAllCurrentTrash(){
+
+}
+
 
 $(function () {
     const video = $("video")[0];

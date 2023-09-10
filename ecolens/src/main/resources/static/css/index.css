@@ -1,4 +1,3 @@
-
 body {
     /* Your CSS styles for the body element */
     font-family: Arial, sans-serif;
@@ -14,6 +13,7 @@ body {
     align-items: center;
     height: 100vh;
     border-bottom: 2px solid #ddd;
+    position: relative; /* Add position relative to the container */
 }
 
 .video {
@@ -27,6 +27,25 @@ body {
     /* Your CSS styles for the video element */
     width: 1080px;
     height: 720px;
+}
+
+/* Loading spinner styles */
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #3498db; /* Change to your desired loading spinner color */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .info {

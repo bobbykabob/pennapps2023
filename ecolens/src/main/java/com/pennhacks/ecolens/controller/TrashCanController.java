@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @RestController
 public class TrashCanController {
@@ -22,10 +23,17 @@ public class TrashCanController {
         this.trashCanService =trashCanService;
     }
 
+    @CrossOrigin
+    @GetMapping("/alltrashcan")
+    public ResponseEntity<List<Integer>> getAllTrashCanIds(){
+        return ResponseEntity.ok(trashCanService.getAllTrashCanIds());
+    }
+
     /**
      * Create a new user
      * @return ResponseEntity containing the trash can ID
      */
+    @CrossOrigin(origins = "*")
     @PostMapping("/trashcan")
     public ResponseEntity<String> createTrashCan(){
         TrashCan newTrashCan = new TrashCan();
@@ -33,6 +41,7 @@ public class TrashCanController {
         return ResponseEntity.ok("New trash can created with id: " + createdTrashCan.getId());
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/trashcan/{id}")
     public ResponseEntity<String> deleteTrashCan(@PathVariable int id){
         trashCanService.deleteTrashCan(id);
@@ -44,6 +53,7 @@ public class TrashCanController {
      * @param id
      * @return
      */
+    @CrossOrigin(origins = "*")
     @PatchMapping("/trashcan:dump")
     public ResponseEntity<String> dumpTrashCan(@RequestParam int id ){
         trashCanService.dumpTrash(id);
@@ -56,6 +66,7 @@ public class TrashCanController {
      * @param itemName
      * @return
      */
+    @CrossOrigin(origins = "*")
     @PatchMapping("/trashcan/{trashCanId}")
     public ResponseEntity<String> updateTrashCanItems(@PathVariable int trashCanId, @RequestParam("itemName") String itemName){
         trashCanService.updateTrash(trashCanId, itemName);
@@ -101,6 +112,7 @@ public class TrashCanController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/trashcan/{trashCanId}")
     public ResponseEntity<?> getTrashCanItems(@PathVariable int trashCanId){
         try {
@@ -125,6 +137,7 @@ public class TrashCanController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/trashcan/{current}/{trashCanId}")
     public ResponseEntity<?> getCurrentTrashTypesById(@PathVariable boolean current, 
                                                       @PathVariable int trashCanId){
@@ -173,6 +186,7 @@ public class TrashCanController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("trashcan:all")
     public ResponseEntity<?> getAllTrashTypes(@RequestParam boolean current){
         try {
@@ -189,6 +203,7 @@ public class TrashCanController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
     }
+
 
     private TrashTypesView getTrashTypesView(boolean current) {
         int recyclables = 0;
