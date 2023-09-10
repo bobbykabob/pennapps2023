@@ -135,13 +135,13 @@ $(function () {
         canvas[0].height = video.videoHeight;
 
         canvas.css({
-            width: 500,
-            height: 300,
-            left: 100,
-            top: 200
+            width: dimensions.width,
+            height: dimensions.height,
+            left: ($(window).width() - dimensions.width)/2,
+            top: ($(window).height() - dimensions.height)/2
         });
 
-        $("body").append(canvas);
+        $(document.getElementsByClassName("layer2")).append(canvas);
     };
 
     const renderPredictions = function (predictions) {

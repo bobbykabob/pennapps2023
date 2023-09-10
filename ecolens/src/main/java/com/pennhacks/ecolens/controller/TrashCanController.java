@@ -186,6 +186,11 @@ public class TrashCanController {
         }
     }
 
+    /**
+     * ex: http://localhost:8080/trashcan:all?current=true
+     * @param current
+     * @return
+     */
     @CrossOrigin(origins = "*")
     @GetMapping("trashcan:all")
     public ResponseEntity<?> getAllTrashTypes(@RequestParam boolean current){

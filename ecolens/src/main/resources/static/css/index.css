@@ -16,6 +16,15 @@ body {
     position: relative; /* Add position relative to the container */
 }
 
+.container_row{
+    display: grid;
+    padding: 50px;
+}
+
+.layer1, .layer2{
+    grid-column: 1;
+    grid-row: 1;
+}
 .video {
     /* Your CSS styles for the video container */
     flex: 1;
