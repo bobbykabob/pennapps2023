@@ -74,6 +74,41 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    function displayFirstField(data) {
+        // Assuming data is an array of objects
+        if (Array.isArray(data) && data.length > 0) {
+            // Get the first object from the array
+            const firstObject = data[0];
+
+            // Get the keys (field names) of the object
+            const fieldNames = Object.keys(firstObject);
+
+            // Display the first field in the specified HTML element
+            const currentRecycledTrashContent = document.getElementById('currentRecycledTrashContent');
+            if (currentRecycledTrashContent) {
+                currentRecycledTrashContent.textContent = fieldNames[0]; // Display the first field
+            }
+        }
+    }
+
+    function displaySecondField(data) {
+        // Assuming data is an array of objects
+        if (Array.isArray(data) && data.length > 0) {
+            // Get the first object from the array
+            const firstObject = data[0];
+
+            // Get the keys (field names) of the object
+            const fieldNames = Object.keys(firstObject);
+
+            // Display the second field in the specified HTML element
+            const currentNonRecycledTrashContent = document.getElementById('currentNonRecycledTrashContent');
+            if (currentNonRecycledTrashContent && fieldNames.length > 1) {
+                currentNonRecycledTrashContent.textContent = firstObject[fieldNames[1]]; // Display the second field
+            }
+        }
+    }
+    
+
     function getAllLifetimeTrash() {
         fetch('/trashcan:all?current=false')
             .then(response => {
