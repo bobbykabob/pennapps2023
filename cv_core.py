@@ -16,7 +16,7 @@ class CV_Core:
         cwd = os.getcwd()
         rf = Roboflow(api_key="mIvPWCB2jGHVELOKW2NA")
         project = rf.workspace().project("ecolens")
-        self.model = project.version(2).model
+        self.model = project.version(5).model
 
         # show video through opencv library
         self.show_video = True
@@ -31,16 +31,18 @@ class CV_Core:
             self.show_frame(frame)
         dictionary = {}
 
-        print(detection_output)
+        # print(detection_output)
 
-        if detection_output is not [] or detection_output is not None:
+        if len(detection_output) != 0:
             detection_output_json = detection_output.json()
             detection_output_json_predictions = detection_output_json["predictions"]
-            detection_output_json_predictions_list = detection_output_json_predictions[0]
-            print(detection_output_json_predictions)
-            dictionary = {"item_name": detection_output_json_predictions_list["class"],
-                          "confidence": detection_output_json_predictions_list["confidence"]
-                          }
+
+            if len(detection_output_json_predictions) != 0:
+                print(detection_output_json_predictions)
+                detection_output_json_predictions_list = detection_output_json_predictions[0]
+                dictionary = {"item_name": detection_output_json_predictions_list["class"],
+                              "confidence": detection_output_json_predictions_list["confidence"]
+                              }
 
         #print(dictionary)
         # saving json file
