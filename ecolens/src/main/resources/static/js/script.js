@@ -70,7 +70,8 @@ function startRecording() {
 }
 function getItemJSON() {
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open("GET", "/Hot%20Cup"); // Use a relative URL
+    const itemName = "Hot Cup"; // Replace with the actual item name you want to retrieve
+    httpRequest.open("GET", `/${itemName}`);
     httpRequest.setRequestHeader("Accept", "application/json");
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState === 4 && httpRequest.status === 200) {
