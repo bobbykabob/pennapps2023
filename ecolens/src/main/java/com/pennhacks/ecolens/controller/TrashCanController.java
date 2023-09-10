@@ -62,10 +62,18 @@ public class TrashCanController {
         return ResponseEntity.ok("Trash can with id " + trashCanId + " added item: " + itemName +".");
     }
 
-    @GetMapping("/{itemName}")
-    public ResponseEntity<?> getItemDescription(@PathVariable String itemName){
+    /**
+     * EX: http://localhost:8080/trashcan?itemName=Hot%20Cup
+     * @param itemName
+     * @return
+     */
+    @CrossOrigin(origins = "*")
+    @GetMapping("/trashcan")
+    public ResponseEntity<?> getItemDescription(@RequestParam("itemName") String itemName) {
         try {
+            // Your logic to retrieve the item by itemName
             TrashCan trashCan = new TrashCan();
+            trashCanService.initializeTrashCanItems(trashCan);
             Item item = trashCan.getItemByName(itemName);
 
             // Assuming you have an ItemView class to represent the item's information
@@ -77,7 +85,7 @@ public class TrashCanController {
             ItemErrorResponse errorResponse = new ItemErrorResponse(
                     ZonedDateTime.now(),
                     HttpStatus.NOT_FOUND.value(),
-                    "/{itemName}",
+                    "/trashcan", // Adjust the path to match the mapping
                     "Item not found: " + e.getMessage()
             );
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
@@ -86,7 +94,7 @@ public class TrashCanController {
             TrashCanErrorResponse errorResponse = new TrashCanErrorResponse(
                     ZonedDateTime.now(),
                     HttpStatus.NOT_FOUND.value(),
-                    "/{itemName}",
+                    "/trashcan", // Adjust the path to match the mapping
                     "Trash Can not found: " + e.getMessage()
             );
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);

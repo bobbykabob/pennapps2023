@@ -39,7 +39,7 @@ public class TrashCanService {
         itemRepo.save(item2);
 
 // Create TrashCanItem instances for currentTrashCanItems
-        CurrentTrashCanItem  circularLid1 = new CurrentTrashCanItem(trashCan, item1, 0);
+        CurrentTrashCanItem circularLid1 = new CurrentTrashCanItem(trashCan, item1, 0);
         CurrentTrashCanItem hotCup1 = new CurrentTrashCanItem(trashCan, item2, 0);
 
 // Create TrashCanItem instances for lifetimeTrashCanItems
