@@ -40,7 +40,7 @@ async function getModel() {
 
 var initalized_model = getModel();
 
-initalized_model.then(function (model)) {
+initalized_model.then(function (model)){
 }
 function startWebcam(stream) {
     window.stream = stream;
@@ -72,7 +72,15 @@ function startRecording() {
         console.log("Predictions:", predictions);
     });
 }
-
+function getItemJSON(){
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.open("GET","http://localhost:8080/Hot%20Cup")
+    httpRequest.send();
+    httpRequest.onload=function (){
+        alert();
+    }
+    console.log("inside the .js file")
+}
 // function recordVideo(event) {
 //     if (event.data && event.data.size > 0) {
 //         video.srcObject = null;
