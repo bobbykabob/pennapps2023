@@ -8,6 +8,8 @@ from viam.components.camera import Camera
 from PIL import Image
 import numpy
 import io
+import pyvirtualcam
+
 
 async def connect():
     creds = Credentials(
@@ -28,16 +30,18 @@ async def main():
 
     # cam
     cam = Camera.from_robot(robot, "cam")
+    with pyvirtualcam.Camera(width=640, height=480, fps=20) as virtual_cam:
 
+        while True:
+            cam_return_value = await cam.get_image()
+            print(f"cam get_image return value: {cam_return_value}")
+            img = Image.open(io.BytesIO(cam_return_value.data))
+            destRGB = cv2.cvtColor(numpy.array(img), cv2.COLOR_BGR2RGB)
 
-    while True:
-        cam_return_value = await cam.get_image()
-        print(f"cam get_image return value: {cam_return_value}")
-        img = Image.open(io.BytesIO(cam_return_value.data))
-        destRGB = cv2.cvtColor(numpy.array(img), cv2.COLOR_BGR2RGB)
-
-        cv2.imshow("img", destRGB)
-        cv2.waitKey(1)
+            virtual_cam.send(numpy.array(img))
+            virtual_cam.sleep_until_next_frame()
+            cv2.imshow("img", destRGB)
+            cv2.waitKey(1)
 
     # Don't forget to close the robot when you're done!
     await robot.close()
