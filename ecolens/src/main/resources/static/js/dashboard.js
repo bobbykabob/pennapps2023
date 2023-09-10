@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
-    
+
 
     function getAllLifetimeTrash() {
         fetch('/trashcan:all?current=false')
