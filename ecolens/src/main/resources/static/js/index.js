@@ -1,39 +1,3 @@
-
-function getItemJSON(callback) {
-    let httpRequest = new XMLHttpRequest();
-    const itemName = "Hot Cup";
-    const encodedItemName = encodeURIComponent(itemName);
-    const url = `http://localhost:8080/trashcan?itemName=${encodedItemName}`;
-    httpRequest.open("GET", url); // Use the updated URL
-    httpRequest.setRequestHeader("Accept", "application/json");
-    httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === 4) {
-            if (httpRequest.status === 200) {
-                // Parse the JSON response
-                const response = JSON.parse(httpRequest.responseText);
-
-                // Check if there is a description in the JSON data
-                const description = response.description || "No trash detected";
-
-                // Call the callback function with the description
-                callback(description);
-            } else {
-                // Handle errors or other status codes
-                console.error("Request failed with status: " + httpRequest.status);
-
-                // Provide a default description in case of error
-                callback("No trash detected");
-            }
-        }
-    };
-    httpRequest.send();
-}
-
-function getAllCurrentTrash(){
-
-}
-
-
 $(function () {
     const video = $("video")[0];
     const devices = navigator.mediaDevices.enumerateDevices();
@@ -86,7 +50,7 @@ $(function () {
     const font = "16px sans-serif";
 
     function videoDimensions(video) {
-        // Ratio of the video's intrisic dimensions
+        // Ratio of the video's intrinsic dimensions
         var videoRatio = video.videoWidth / video.videoHeight;
 
         // The width and height of the video element
@@ -137,8 +101,8 @@ $(function () {
         canvas.css({
             width: dimensions.width,
             height: dimensions.height,
-            left: ($(window).width() - dimensions.width)/2,
-            top: ($(window).height() - dimensions.height)/2
+            left: ($(window).width() - dimensions.width) / 2,
+            top: ($(window).height() - dimensions.height) / 2
         });
 
         $(document.getElementsByClassName("layer2")).append(canvas);
@@ -209,7 +173,22 @@ $(function () {
             .then(function (predictions) {
                 requestAnimationFrame(detectFrame);
                 renderPredictions(predictions);
-                console.log(predictions);
+                // console.log(predictions);
+                if (predictions.length > 0) {
+                    const firstPrediction = predictions[0];
+                    const itemName = firstPrediction.class;
+
+                    // Assign the 'itemName' to the global variable 'item'
+                    item = itemName;
+
+                    const description = firstPrediction.description || "No description available";
+
+                    // Call the updateItem function to update the item name and description
+                    // updateItem(description, itemName);
+                    getItemJSON(function (description, recyclable) {
+                        updateItem(description, recyclable);
+                    });
+                }
                 if (prevTime) {
                     pastFrameTimes.push(Date.now() - prevTime);
                     if (pastFrameTimes.length > 30) pastFrameTimes.shift();

@@ -85,10 +85,13 @@ public class TrashCanController {
             // Your logic to retrieve the item by itemName
             TrashCan trashCan = new TrashCan();
             trashCanService.initializeTrashCanItems(trashCan);
+
             Item item = trashCan.getItemByName(itemName);
+            System.out.println(item.getName());
 
             // Assuming you have an ItemView class to represent the item's information
-            ItemView itemView = new ItemView(item.getName(), item.getDescription());
+            ItemView itemView = new ItemView(item.getName(), item.getDescription(), item.isRecyclable());
+            System.out.println(item.getDescription());
 
             return ResponseEntity.ok(itemView);
         } catch (ItemNotFoundException e) {

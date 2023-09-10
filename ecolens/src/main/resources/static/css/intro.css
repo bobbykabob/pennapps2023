@@ -30,7 +30,7 @@ body {
     left: 45%;
 
     /* Set the background image and specify the size */
-    background-image: url('../img/camera-icon.png');
+    background-image: url('../misc/camera-icon.png');
     background-size: cover; /* Ensure the background image fits the button */
     background-repeat: no-repeat; /* Prevent image repetition */
     width: 10em; /* Set the width to 5em (adjust as needed) */
