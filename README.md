@@ -42,7 +42,7 @@ To get started with the Ecolens project, follow these steps:
    git clone <repository-url>
    ```
 
-2. **Set Up Environment**: Ensure you are using jbr-17 for your sdk
+2. **Set Up Environment**: Ensure you are using jbr-17 for your sdk, you may need to navigate to the 'ecolens' file to run the EcolensApplication.java class
 
 3. **Start the Web Application**: Navigate to the project directory and start the web application by running the appropriate commands. Typically, this involves running `maven clean build` to start the development server.
 
