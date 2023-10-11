@@ -1,5 +1,5 @@
 # Ecolens Project README
-###Check out our media here:
+### Check out our media here:
 https://www.viam.com/post/build-backstories-creating-eco-lens-the-smart-machine-that-helps-with-recycling
 https://www.instagram.com/p/CyGyNkQrwBm/
 
